@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
-
 project(OMeGA-gui LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -29,17 +27,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
 
-set(THIRD_PARTY_DIR_NAME "third_party")
-set(OMEGA_LIB_PATH ${CMAKE_CURRENT_LIST_DIR}/OMeGA-lib/${THIRD_PARTY_DIR_NAME})
-
-find_package(SDL2 REQUIRED)
-find_package(SDL2_mixer	REQUIRED)
-
-add_subdirectory(OMeGA-lib)
-
 set(TS_FILES OMeGA-gui_en_GB.ts)
 
-set(INCLUDE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/OMeGA-lib/include)
+set(INCLUDE_OMEGA_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/OMeGA-lib/include)
+set(LIBRARY_OMEGA_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/OMeGA-lib/lib)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -68,5 +59,5 @@ else()
 
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
-target_include_directories(OMeGA-gui PUBLIC ${INCLUDE_LIB_DIR})
-target_link_libraries(OMeGA-gui PRIVATE Qt${QT_VERSION_MAJOR}::Widgets OMeGA_lib)
+target_include_directories(OMeGA-gui PUBLIC ${INCLUDE_OMEGA_LIB_DIR})
+target_link_libraries(OMeGA-gui PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${LIBRARY_OMEGA_LIB_DIR}/OMeGA_lib.lib)
