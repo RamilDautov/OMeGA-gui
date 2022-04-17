@@ -1,0 +1,3 @@
+[submodule "OMeGA-lib"]
+	path = OMeGA-lib
+	url = git@github.com:RamilDautov/OMeGA-lib.git
